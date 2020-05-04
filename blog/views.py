@@ -1,21 +1,5 @@
 from django.shortcuts import render
-
-
-# dummy posts
-posts = [
-    {
-        'author': 'Swebert Correa',
-        'title': 'Blog Post 1',
-        'content': 'First Post',
-        'date_posted': 'May 3, 2020',
-    },
-    {
-        'author': 'Jinit Sanghvi',
-        'title': 'Blog Post 2',
-        'content': 'Second Post',
-        'date_posted': 'May 4, 2020',
-    },
-]
+from .models import Post
 
 
 def home(request):
@@ -23,7 +7,7 @@ def home(request):
 
     # dynamic data passed to the template
     context = {
-        'posts': posts,
+        'posts': Post.objects.all(),
     }
     return render(request, 'blog/home.html', context)
 
