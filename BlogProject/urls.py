@@ -15,11 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from users import views as users_views
 
 # redirects from our main project to apps
 urlpatterns = [
     # make the blog app the default/home
     path('', include('blog.urls')),
+
+    # second approach to redirect directly to the view instead of
+    # doing it via the urls.py of the app (as done above)
+    # so the alias is named here itself
+    path('register/', users_views.register, name='register'),
 
     path('admin/', admin.site.urls),
 ]

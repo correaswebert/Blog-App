@@ -31,8 +31,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    # tell django that blog app is using templates
     'blog.apps.BlogConfig',
+    'users.apps.UsersConfig',
+    'crispy_forms',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -121,3 +122,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# tell crispy forms to use BS4 (or other css frameworks)
+# default is BS2
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
