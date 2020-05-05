@@ -4,7 +4,8 @@ from .views import (
     PostDetailView,
     PostCreateView,
     PostUpdateView,
-    PostDeleteView
+    PostDeleteView,
+    UserPostListView,
 )
 from . import views
 
@@ -12,6 +13,8 @@ from . import views
 urlpatterns = [
     # empty path indicates that this is the index/home page
     path('', PostListView.as_view(), name="blog-home"),
+
+    path('user/<str:username>/', UserPostListView.as_view(), name="user-posts"),
 
     # use the default url instead of renaming it the views.py
     path('post/<int:pk>/', PostDetailView.as_view(), name="post-detail"),
