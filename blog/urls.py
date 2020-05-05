@@ -1,6 +1,11 @@
 from django.urls import path
-from .views import (PostListView, PostDetailView,
-                    PostCreateView, PostUpdateView, PostDeleteView)
+from .views import (
+    PostListView,
+    PostDetailView,
+    PostCreateView,
+    PostUpdateView,
+    PostDeleteView
+)
 from . import views
 
 # redirects from our app to our views
