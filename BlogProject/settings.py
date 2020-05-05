@@ -126,3 +126,10 @@ STATIC_URL = '/static/'
 # tell crispy forms to use BS4 (or other css frameworks)
 # default is BS2
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# by default Django redirects to profile page
+LOGIN_REDIRECT_URL = 'blog-home'
+
+# instead of redirecting to default login route (authentication error)
+# go to our custom login page
+LOGIN_URL = 'login'
