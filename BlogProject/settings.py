@@ -123,6 +123,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# location where uploaded files will be saved
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# public access url to the media files
+MEDIA_URL = '/media/'
+
 # tell crispy forms to use BS4 (or other css frameworks)
 # default is BS2
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

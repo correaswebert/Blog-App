@@ -31,3 +31,7 @@
 
 - `python manage.py shell`
   this command gives Django based python interactive shell
+
+- Whenever you create any new models, update **admin.py** to register
+  the model. Models are like data structures to encapsulate your data
+  and related functions. For eg., our _Post_ model has a _title_, _author_, _date_posted_ and _content_.
