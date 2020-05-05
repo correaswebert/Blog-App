@@ -1,4 +1,5 @@
 {% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
 
 {% block content %}
     <div class="content-section">
@@ -9,5 +10,21 @@
           <p class="text-secondary">{{ user.email }}</p>
         </div>
       </div>
+
+      {% comment %} enctype -> encoding info pass inage data {% endcomment %}
+      <form method="post" enctype="multipart/form-data">
+        {% comment %} this token prevents cross site scripting {% endcomment %}
+        {% csrf_token %}
+        <fieldset class="form-group">
+          <legend class="border-bottom mb-4">Profile Info</legend>
+          {% comment %} pipe our editted form to crispy for styling {% endcomment %}
+          {{ u_form|crispy }}
+          {{ p_form|crispy }}
+        </fieldset>
+
+        <div class="form-group">
+          <button class="btn btn-outline-info" type="submit">Update</button>
+        </div>
+      </form>      
     </div>
 {% endblock content %}
