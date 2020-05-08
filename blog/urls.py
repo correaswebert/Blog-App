@@ -6,6 +6,7 @@ from .views import (
     PostUpdateView,
     PostDeleteView,
     UserPostListView,
+    TagPostListView,
 )
 from . import views
 
@@ -15,6 +16,7 @@ urlpatterns = [
     path('', PostListView.as_view(), name="blog-home"),
 
     path('user/<str:username>/', UserPostListView.as_view(), name="user-posts"),
+    path('tag/<str:name>/', TagPostListView.as_view(), name="tag-posts"),
 
     # use the default url instead of renaming it the views.py
     path('post/<int:pk>/', PostDetailView.as_view(), name="post-detail"),

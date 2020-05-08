@@ -1,12 +1,14 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
+    {% comment %} <h1 class="mb-3">Posts by {{ view.kwargs.username }} ({{ page_obj.paginator.count }})</h1> {% endcomment %}
+
   {% for post in posts %}
     <article class="media content-section">
+      <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}" />
 
       <div class="media-body">
         <div class="article-metadata">
-          <img class="article-img" src="{{ post.author.profile.image.url }}" />
           <a class="mr-2" href="{% url 'user-posts' post.author.username %}">
             {{ post.author }}
           </a>
@@ -16,7 +18,7 @@
         </div>
         <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
         <p class="article-content">{{ post.content }}</p>
-        
+
         <div>
           {% for tag in post.tags.all %}
             <a href="{% url 'tag-posts' tag.name %}" class="article-tags">{{ tag.name }}</a>

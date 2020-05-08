@@ -8,7 +8,7 @@ from django.views.generic import (
     DeleteView
 )
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from .models import Post
+from .models import Post, Tag
 
 
 class PostListView(ListView):
@@ -37,6 +37,19 @@ class UserPostListView(ListView):
 
         user = get_object_or_404(User, username=self.kwargs.get('username'))
         return Post.objects.filter(author=user).order_by('-date_posted')
+
+
+class TagPostListView(ListView):
+    model = Post
+    template_name = 'blog/tag_posts.html'
+    context_object_name = 'posts'
+    paginate_by = 5
+
+    def get_queryset(self):
+        """get all posts of a tag"""
+
+        tag_name = get_object_or_404(Tag, name=self.kwargs.get('name'))
+        return Post.objects.filter(tags=tag_name).order_by('-date_posted')
 
 
 class PostDetailView(DetailView):
