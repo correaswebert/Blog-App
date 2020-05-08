@@ -7,6 +7,7 @@
       <div class="media-body">
         <div class="article-metadata">
           <img class="article-img" src="{{ post.author.profile.image.url }}" />
+          
           <a class="mr-2" href="{% url 'user-posts' post.author.username %}">
             {{ post.author }}
           </a>
@@ -15,7 +16,7 @@
           <small class="text-muted">{{ post.date_posted|date:'F d, Y' }}</small>
         </div>
         <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
-        <p class="article-content">{{ post.content }}</p>
+        <p class="article-content">{{ post.content|truncatechars_html:100 }}</p>
         
         <div>
           {% for tag in post.tags.all %}
@@ -25,6 +26,15 @@
       </div>
     </article>
   {% endfor %}
+
+  <script>
+    let articles = document.getElementsByClassName("article-content");
+    for (let i = 0; i < articles.length; i++) {
+      let article = articles[i];
+      article.innerHTML = marked(article.innerText);
+      article.style.whiteSpace = "normal";
+    }
+  </script>
 
   {% if is_paginated %}
     {% if page_obj.has_previous %}

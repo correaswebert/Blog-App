@@ -50,10 +50,6 @@ a.article-title:hover {
   text-decoration: none;
 }
 
-.article-content {
-  white-space: pre-line;
-}
-
 .article-img {
   height: 65px;
   width: 65px;
@@ -101,3 +97,9 @@ a.article-tags:hover {
 .account-heading {
   font-size: 2.5rem;
 }
+
+.article-content {
+  white-space: pre-line;
+}
+
+/* .article-content  */

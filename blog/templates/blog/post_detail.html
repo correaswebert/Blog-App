@@ -2,10 +2,11 @@
 
 {% block content %}
 <article class="media content-section">
-  <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}" />
 
   <div class="media-body">
     <div class="article-metadata">
+      <img class="article-img" src="{{ object.author.profile.image.url }}" />
+      
       <a class="mr-2" href="{% url 'user-posts' object.author.username %}">
         {{ object.author }}
       </a>
@@ -25,8 +26,15 @@
       {% endif %}
     </div>
     
-    <h2 class="article-title"{{ object.title }}</h2>
+    <h2 class="article-title">{{ object.title }}</h2>
     <p class="article-content">{{ object.content }}</p>
   </div>
 </article>
+
+<script>
+  let article = document.getElementsByClassName("article-content")[0];
+  article.innerHTML = marked(article.innerText);
+  article.style.whiteSpace = "normal";
+</script>
+
 {% endblock content %}

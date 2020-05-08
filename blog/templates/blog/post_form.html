@@ -30,34 +30,34 @@
   
   <div id="rendered-content" style="display: none;"></div>
 
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script>
-      const form = document.getElementsByTagName("form")[0];
-      const togglePreview = document.getElementById("togglePreview");
-      const textarea = document.getElementById("id_content");
-      const title = document.getElementById("id_title");
-      const content = document.getElementById("rendered-content");
-      function updateMd() {
-        let text = textarea.value;
-        let titleText = title.value;
-        content.innerHTML = `<h1>${titleText}</h1><hr>` + marked(text);
+  <script>
+    const form = document.getElementsByTagName("form")[0];
+    const togglePreview = document.getElementById("togglePreview");
+    const textarea = document.getElementById("id_content");
+    const title = document.getElementById("id_title");
+    const content = document.getElementById("rendered-content");
+    
+    let isPreview = false;
+
+    function updateMd() {
+      let text = textarea.value;
+      let titleText = title.value;
+      content.innerHTML = `<h1>${titleText}</h1><hr>` + marked(text);
+    }
+
+    togglePreview.addEventListener("click", () => {
+      isPreview = !isPreview;
+      if (isPreview) {
+        updateMd();
+        content.style.display = "block";
+        form.style.display = "none";
+        togglePreview.innerText = "Edit";
+      } else {
+        content.style.display = "none";
+        form.style.display = "block";
+        togglePreview.innerText = "Preview";
       }
-
-      let isPreview = false;
-
-      togglePreview.addEventListener("click", () => {
-        isPreview = !isPreview;
-        if (isPreview) {
-          updateMd();
-          content.style.display = "block";
-          form.style.display = "none";
-          togglePreview.innerText = "Edit";
-        } else {
-          content.style.display = "none";
-          form.style.display = "block";
-          togglePreview.innerText = "Preview";
-        }
-      })
-    </script>
+    })
+  </script>
 </div>
 {% endblock content %}
