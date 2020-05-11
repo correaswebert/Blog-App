@@ -8,7 +8,7 @@ from django.views.generic import (
     DeleteView
 )
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from .models import Post, Tag
+from .models import Post, Tag, Comment
 
 
 class PostListView(ListView):
@@ -54,6 +54,13 @@ class TagPostListView(ListView):
 
 class PostDetailView(DetailView):
     model = Post
+    # fields = ['comment.text']
+
+    # def form_valid(self, form):
+    #     """set the author of the post to current user before posting"""
+
+    #     form.instance.author = self.request.user
+    #     return super().form_valid(form)
 
 
 # the mixin is like the login_required decorator
@@ -105,6 +112,18 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == post.author:
             return True
         return False
+
+# class PostCommentView(ListView):
+#     model = Comment
+#     template_name = 'blog/tag_posts.html'
+#     context_object_name = 'posts'
+#     paginate_by = 5
+
+#     def get_queryset(self):
+#         """get all posts of a tag"""
+
+#         tag_name = get_object_or_404(Tag, name=self.kwargs.get('name'))
+#         return Post.objects.filter(tags=tag_name).order_by('-date_posted')
 
 
 def about(request):

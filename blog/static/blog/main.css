@@ -1,6 +1,6 @@
 body {
-  background: #fafafa;
-  color: #333333;
+  background: black;
+  color: whitesmoke;
   margin-top: 5rem;
 }
 
@@ -10,7 +10,7 @@ h3,
 h4,
 h5,
 h6 {
-  color: #444444;
+  color: #e2e2e2;
 }
 
 ul {
@@ -18,7 +18,11 @@ ul {
 }
 
 .bg-steel {
-  background-color: #5f788a;
+  background-color: black;
+}
+
+nav {
+  border-bottom: 1px solid white;
 }
 
 .site-header .navbar-nav .nav-link {
@@ -34,15 +38,15 @@ ul {
 }
 
 .content-section {
-  background: #ffffff;
-  padding: 10px 20px;
+  background: #151515;
+  padding: 1em;
   border: 1px solid #dddddd;
   border-radius: 3px;
-  margin-bottom: 20px;
+  margin-bottom: 2em;
 }
 
 .article-title {
-  color: #444444;
+  color: #75bfff;
 }
 
 a.article-title:hover {
@@ -53,18 +57,23 @@ a.article-title:hover {
 .article-img {
   height: 65px;
   width: 65px;
-  margin-right: 16px;
+  margin-right: 1em;
   border-radius: 5px;
 }
 
 .article-metadata {
-  padding-bottom: 1px;
-  margin-bottom: 4px;
+  display: flex;
+  direction: row;
+  padding-bottom: 0.5em;
+  margin-bottom: 0.5em;
   border-bottom: 1px solid #e3e3e3;
 }
 
-.article-metadata a:hover {
-  color: #333;
+a {
+  color: skyblue;
+}
+a:hover {
+  color: teal;
   text-decoration: none;
 }
 
@@ -102,4 +111,62 @@ a.article-tags:hover {
   white-space: pre-line;
 }
 
-/* .article-content  */
+article:hover {
+  transition: all 0.1s;
+}
+
+article:hover {
+  box-shadow: 0 0 1em 0.5em gray;
+}
+
+.article-content blockquote {
+  padding: 0 1em;
+  color: #6a737d;
+  border-left: 0.25em solid #dfe2e5;
+}
+
+.article-content blockquote > :first-child {
+  margin-top: 0;
+}
+
+.article-content blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+.form-control {
+  background-color: #252525;
+  color: #e2e2e2;
+  /* overflow-y: scroll; */
+}
+
+.form-control:focus {
+  background-color: inherit;
+  color: inherit;
+}
+
+.article-content pre {
+  padding: 0.25em 0.5em;
+  border-radius: 3px;
+  background-color: #424242;
+  color: #e2e2e2;
+}
+
+.article-content blockquote {
+  background-color: #1d1d1d;
+}
+.article-content blockquote:first-child {
+  padding-top: 0.5em;
+}
+.article-content blockquote:last-child {
+  padding-bottom: 0.25em;
+}
+.article-content blockquote p {
+  margin-bottom: 0.25em;
+  color: #d2d2d2;
+}
+
+@media (max-width: 568px) {
+  h1 {
+    font-size: 2rem;
+  }
+}

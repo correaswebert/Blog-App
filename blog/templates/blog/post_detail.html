@@ -1,40 +1,36 @@
-{% extends 'blog/base.html' %}
+{% extends 'blog/base.html' %} {% load static %} {% block content %}
 
-{% block content %}
-<article class="media content-section">
+<div class="container">
+  <h2>{{ object.title }}</h2>
+  <h6>
+    {{ object.date_posted|date:'F d, Y' }} by
+    <a class="mr-2" href="{% url 'user-posts' object.author.username %}">
+      {{ object.author }}
+    </a>
+  </h6>
 
-  <div class="media-body">
-    <div class="article-metadata">
-      <img class="article-img" src="{{ object.author.profile.image.url }}" />
-      
-      <a class="mr-2" href="{% url 'user-posts' object.author.username %}">
-        {{ object.author }}
+  {% if object.author == user %}
+    <div>
+      <a href="{% url 'post-update' object.id %}" class="btn btn-secondary btn-sm my-1">
+        Update
       </a>
-
-      {% comment %} pipe date to a formatter {% endcomment %}
-      <small class="text-muted">{{ object.date_posted|date:'F d, Y' }}</small>
-
-      {% if object.author == user %}
-        <div>
-          <a href="{% url 'post-update' object.id %}" class="btn btn-secondary btn-sm my-1">
-            Update
-          </a>
-          <a href="{% url 'post-delete' object.id %}" class="btn btn-danger btn-sm my-1">
-            Delete
-          </a>
-        </div>
-      {% endif %}
+      <a href="{% url 'post-delete' object.id %}" class="btn btn-danger btn-sm my-1">
+        Delete
+      </a>
     </div>
-    
-    <h2 class="article-title">{{ object.title }}</h2>
-    <p class="article-content">{{ object.content }}</p>
-  </div>
-</article>
+  {% endif %}
 
-<script>
-  let article = document.getElementsByClassName("article-content")[0];
-  article.innerHTML = marked(article.innerText);
-  article.style.whiteSpace = "normal";
-</script>
+  <hr />
+
+  <div class="article-content">{{ object.content }}</div>
+</div>
+
+<div class="container comments">
+  {% for comment in post.comment_set.all %}
+  <p>{{ comment.text }}</p>
+  {% endfor %}
+</div>
+
+<script src="{% static 'blog/main.js' %}"></script>
 
 {% endblock content %}
