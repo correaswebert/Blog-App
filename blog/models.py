@@ -49,7 +49,7 @@ class Comment(models.Model):
     # ForeignKey is ManyToManyField
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     text = models.TextField()
-    # author = models.ForeignKey(User, on_delete=models.CASCADE)
+    # author = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.post.title

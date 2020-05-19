@@ -1,6 +1,7 @@
 from django.contrib import admin
-from .models import Post
+from .models import Post, Comment
 
 
-# add the Post model to our admin page, along with Users and Groups
+# add models to our admin page
 admin.site.register(Post)
+admin.site.register(Comment)
