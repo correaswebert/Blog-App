@@ -13,7 +13,7 @@ class Profile(models.Model):
     def save(self, *args, **kwargs):
         """override parent class' method, runs after profile is saved/updated"""
 
-        super().save(*args, **kwargs)
+        super(Profile, self).save(*args, **kwargs)
         img = Image.open(self.image.path)
 
         if img.height > 300 or img.width > 300:

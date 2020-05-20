@@ -2,10 +2,10 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
-
+from Tag_Generator import generate_tags
 
 class Tag(models.Model):
-    name = models.CharField(max_length=16)
+    name = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
@@ -36,6 +36,14 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+    
+    def save(self,*args,**kwargs):
+        """override parent class' method, done to save tags"""
+        super(Post,self).save(*args,**kwargs)
+        tags = Tag(name=generate_tags(self.content))
+        tags.save()
+        self.tags.add(tags)
+
 
     # instead or redirecting, we want the view to handle the routing
     # so we use the reverse function.
