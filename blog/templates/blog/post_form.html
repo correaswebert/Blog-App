@@ -24,13 +24,6 @@
       {{ form|crispy }}
     </fieldset>
 
-    <style>
-      @media screen and (max-width: 568px) {
-        button#post {width: 100%;}
-      }
-    
-    </style>
-
     <div class="form-group">
       <button
         class="btn btn-success"
@@ -42,14 +35,14 @@
     </div>
   </form>
   
-  <div id="rendered-content" style="display: none;"></div>
+  <div class="article-content" style="display: none"></div>
 
   <script>
     const form = document.getElementsByTagName("form")[0];
     const togglePreview = document.getElementById("togglePreview");
     const textarea = document.getElementById("id_content");
     const title = document.getElementById("id_title");
-    const content = document.getElementById("rendered-content");
+    const content = document.getElementsByClassName("article-content")[0];
     
     let isPreview = false;
 
@@ -64,6 +57,7 @@
       if (isPreview) {
         updateMd();
         content.style.display = "block";
+        content.style.whiteSpace = "normal";
         form.style.display = "none";
         togglePreview.innerText = "Edit";
       } else {

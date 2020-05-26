@@ -1,7 +1,7 @@
 {% extends 'blog/base.html' %} {% load static %} {% block content %}
 
 <div class="container">
-  <h2>{{ object.title }}</h2>
+  <h1>{{ object.title }}</h1>
   <h6>
     {{ object.date_posted|date:'F d, Y' }} by
     <a class="mr-2" href="{% url 'user-posts' object.author.username %}">
@@ -26,8 +26,12 @@
 </div>
 
 <div class="container comments">
+  <h2>Comments <a href="{% url 'post-comment' object.id %}">&#9999;</a></h2>
+  
   {% for comment in post.comment_set.all %}
   <p>{{ comment.text }}</p>
+  <small>- {{ comment.author.username }}</small>
+  <hr>
   {% endfor %}
 </div>
 

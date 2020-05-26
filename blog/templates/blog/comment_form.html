@@ -1,0 +1,38 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="content-section">
+  <div id="togglePreview" class="px-2 text-white bg-secondary"
+    style="
+    position: absolute;
+    right: 1em;
+    top: 1px;
+    border-radius: 3px;
+    cursor: pointer;
+    "
+  >
+    Preview
+  </div>
+
+  <form method="post">
+    {% comment %} this token prevents cross site scripting {% endcomment %}
+    {% csrf_token %}
+    <fieldset class="form-group">
+      <legend class="border-bottom mb-4">Comment</legend>
+      {% comment %} pipe our editted form to crispy for styling {% endcomment %}
+      {{ form|crispy }}
+    </fieldset>
+
+    <div class="form-group">
+      <button
+        class="btn btn-success"
+        type="submit"
+        id="post"
+      >
+        Comment
+      </button>
+    </div>
+  </form>
+</div>
+{% endblock content %}

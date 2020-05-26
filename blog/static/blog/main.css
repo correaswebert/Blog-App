@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Satisfy&display=swap");
+
 body {
   background: black;
   color: whitesmoke;
@@ -11,6 +13,9 @@ h4,
 h5,
 h6 {
   color: #e2e2e2;
+}
+h1 {
+  font-family: "Satisfy", cursive;
 }
 
 ul {
@@ -40,7 +45,7 @@ nav {
 .content-section {
   background: #151515;
   padding: 1em;
-  border: 1px solid #dddddd;
+  border: 1px solid #505050;
   border-radius: 3px;
   margin-bottom: 2em;
 }
@@ -111,11 +116,12 @@ a.article-tags:hover {
   white-space: pre-line;
 }
 
-article:hover {
-  transition: all 0.1s;
+p {
+  text-align: justify;
 }
 
 article:hover {
+  border: transparent;
   box-shadow: 0 0 1em 0.5em gray;
 }
 
@@ -125,12 +131,9 @@ article:hover {
   border-left: 0.25em solid #dfe2e5;
 }
 
-.article-content blockquote > :first-child {
-  margin-top: 0;
-}
-
-.article-content blockquote > :last-child {
-  margin-bottom: 0;
+.article-content blockquote p {
+  text-align: left;
+  margin: 0;
 }
 
 .form-control {
@@ -147,26 +150,54 @@ article:hover {
 .article-content pre {
   padding: 0.25em 0.5em;
   border-radius: 3px;
-  background-color: #424242;
-  color: #e2e2e2;
+  background-color: #141414;
+  color: #b3b3b3;
 }
 
 .article-content blockquote {
   background-color: #1d1d1d;
-}
-.article-content blockquote:first-child {
-  padding-top: 0.5em;
-}
-.article-content blockquote:last-child {
-  padding-bottom: 0.25em;
-}
-.article-content blockquote p {
-  margin-bottom: 0.25em;
+  padding: 1em;
   color: #d2d2d2;
+  text-align-last: left;
 }
 
 @media (max-width: 568px) {
   h1 {
     font-size: 2rem;
+  }
+}
+
+.comments {
+  margin-top: 3em;
+}
+.comments h2 {
+  margin-bottom: 1em;
+}
+.comments p {
+  margin: 0;
+}
+.comments small {
+  padding-left: 1em;
+  color: gray;
+}
+
+hr {
+  background-color: white;
+}
+
+.article-image {
+  width: 100%;
+  max-height: 40vw;
+}
+
+@media (min-width: 576px) {
+  .article-image {
+    max-height: 20vw;
+  }
+}
+
+@media (max-width: 576px) {
+  button#post {
+    width: 100%;
   }
 }
