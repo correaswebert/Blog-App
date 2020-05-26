@@ -40,9 +40,14 @@ class Post(models.Model):
     def save(self,*args,**kwargs):
         """override parent class' method, done to save tags"""
         super(Post,self).save(*args,**kwargs)
-        tags = Tag(name=generate_tags(self.content))
-        tags.save()
-        self.tags.add(tags)
+        current_tags = [tag for tag in Tag.objects.all()]
+        for i in generate_tags(self.content).split(','):
+            if i not in current_tags:
+                tags = Tag(name=i)
+                tags.save()
+            else:
+                tags = current_tags.filter(name=i)
+            self.tags.add(tags)
 
 
     # instead or redirecting, we want the view to handle the routing
