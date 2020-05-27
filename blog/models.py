@@ -38,10 +38,22 @@ class Post(models.Model):
 
     def save(self, *args, **kwargs):
         """override parent class' method, done to save tags"""
+<<<<<<< HEAD
+        super(Post,self).save(*args,**kwargs)
+        current_tags = [tag for tag in Tag.objects.all()]
+        for i in generate_tags(self.content).split(','):
+            if i not in current_tags:
+                tags = Tag(name=i)
+                tags.save()
+            else:
+                tags = current_tags.filter(name=i)
+            self.tags.add(tags)
+=======
         super().save(*args, **kwargs)
 
         curr_tags = [tag.name for tag in Tag.objects.all()]
         post_tags = generate_tags(self.content).split(',')
+>>>>>>> b2e3509e16e7897d635d129d22db988326dd70ac
 
         for t in post_tags[:4]:
             t = t.strip()
