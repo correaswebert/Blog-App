@@ -54,13 +54,6 @@ class TagPostListView(ListView):
 
 class PostDetailView(DetailView):
     model = Post
-    # fields = ['comment.text']
-
-    # def form_valid(self, form):
-    #     """set the author of the post to current user before posting"""
-
-    #     form.instance.author = self.request.user
-    #     return super().form_valid(form)
 
 
 # the mixin is like the login_required decorator
@@ -113,19 +106,18 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
             return True
         return False
 
-# class PostCommentView(ListView):
-#     model = Comment
-#     template_name = 'blog/tag_posts.html'
-#     context_object_name = 'posts'
-#     paginate_by = 5
 
-#     def get_queryset(self):
-#         """get all posts of a tag"""
+class PostCommentView(LoginRequiredMixin, CreateView):
+    model = Comment
+    fields = ['text']
 
-#         tag_name = get_object_or_404(Tag, name=self.kwargs.get('name'))
-#         return Post.objects.filter(tags=tag_name).order_by('-date_posted')
+    def form_valid(self, form):
+        """set the author of the post to current user before posting"""
 
+        post_id = self.request.path
+        post_id = post_id.split('/')[2]
+        self.success_url = f'/post/{post_id}'
 
-def about(request):
-    """about page traffic is handled here"""
-    return render(request, 'blog/about.html', {'title': 'About'})
+        form.instance.author = self.request.user
+        form.instance.post = Post.objects.filter(id=post_id).first()
+        return super().form_valid(form)

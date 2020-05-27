@@ -2,7 +2,17 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
-from Tag_Generator import generate_tags
+
+import random
+# from Tag_Generator import generate_tags
+
+
+def generate_tags(x):
+    tags = random.sample(
+        ['business', 'sports', 'politics', 'entertainment'],
+        k=random.randint(1, 4))
+    return ','.join(tags)
+
 
 class Tag(models.Model):
     name = models.CharField(max_length=100)
@@ -12,33 +22,23 @@ class Tag(models.Model):
 
 
 class Post(models.Model):
-    # title can have maximum 100 characters
     title = models.CharField(max_length=100)
-
-    # similar to CharField, but for longer texts
     content = models.TextField()
-
-    # give option to set the date or use the current date as default
     date_posted = models.DateTimeField(default=timezone.now)
 
-    # create one-to-many relationship using ForeignKey
-    # one user can have multiple posts
-    # delete all posts created by user when user is deleted - CASCADE
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-
-    # every post will be tagged using our NLP model
     tags = models.ManyToManyField(Tag)
-
-    # number of likes a post gets from all users
     likes = models.IntegerField(default=0)
 
-    # comment = models.TextField()
+    # for auto-recommendation system ()
+    # topic = models.SmallIntegerField()
 
     def __str__(self):
         return self.title
-    
-    def save(self,*args,**kwargs):
+
+    def save(self, *args, **kwargs):
         """override parent class' method, done to save tags"""
+<<<<<<< HEAD
         super(Post,self).save(*args,**kwargs)
         current_tags = [tag for tag in Tag.objects.all()]
         for i in generate_tags(self.content).split(','):
@@ -48,10 +48,24 @@ class Post(models.Model):
             else:
                 tags = current_tags.filter(name=i)
             self.tags.add(tags)
+=======
+        super().save(*args, **kwargs)
 
+        curr_tags = [tag.name for tag in Tag.objects.all()]
+        post_tags = generate_tags(self.content).split(',')
+>>>>>>> b2e3509e16e7897d635d129d22db988326dd70ac
 
-    # instead or redirecting, we want the view to handle the routing
-    # so we use the reverse function.
+        for t in post_tags[:4]:
+            t = t.strip()
+
+            if t in curr_tags:
+                tag = Tag.objects.filter(name=t).first()
+            else:
+                tag = Tag(name=t)
+                tag.save()
+
+            self.tags.add(tag)
+
     def get_absolute_url(self):
         """route to url returned as a string from reverse"""
         return reverse('post-detail', kwargs={'pk': self.pk})
@@ -62,7 +76,8 @@ class Comment(models.Model):
     # ForeignKey is ManyToManyField
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     text = models.TextField()
-    # author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
+    date_posted = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return self.post.title
